@@ -8,7 +8,7 @@ import MainLayout from './layouts/MainLayout';
 // 페이지들 불러오기
 // import LoginPage from './pages/LoginPage';
 // import SignupPage from './pages/SignupPage';
-//import HomePage from './pages/HomePage';
+import HomePage from './pages/HomePage';
 // import BookListPage from './pages/BookListPage';
 // import BookDetailPage from './pages/BookDetailPage';
 // import NewBookPage from './pages/NewBookPage';
@@ -27,7 +27,7 @@ function App() {
 
                 {/* 헤더 있는 페이지 (MainLayout 적용) */}
                 <Route element={<MainLayout />}>
-                    <Route path="/" element={<div></div>/*<HomePage />*/} />
+                    <Route path="/" element={<HomePage />} />
                     <Route path="/books" element={<div></div>/*<BookListPage />*/} />
                     <Route path="/books/new" element={<div></div>/*<NewBookPage />*/} />
                     <Route path="/books/:id" element={<div></div>/*<BookDetailPage />*/} />
