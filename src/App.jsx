@@ -6,8 +6,8 @@ import { CssBaseline } from '@mui/material';
 import MainLayout from './layouts/MainLayout';
 
 // 페이지들 불러오기
-// import LoginPage from './pages/LoginPage';
-// import SignupPage from './pages/SignupPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
 import HomePage from './pages/HomePage';
 // import BookListPage from './pages/BookListPage';
 // import BookDetailPage from './pages/BookDetailPage';
@@ -22,8 +22,8 @@ function App() {
 
             <Routes>
                 {/* 헤더 없는 페이지 */}
-                <Route path="/login" element={<div></div>/*<LoginPage />*/} />
-                <Route path="/signup" element={<div></div>/*<SignupPage />*/} />
+                <Route path="/login" element={<LoginPage />}/>
+                <Route path="/signup" element={<SignupPage />} />
 
                 {/* 헤더 있는 페이지 (MainLayout 적용) */}
                 <Route element={<MainLayout />}>
