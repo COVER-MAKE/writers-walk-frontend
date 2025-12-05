@@ -1,3 +1,4 @@
+import React, {useState} from 'react';
 export default function BookDetailPage() {
     const book = {
         id: 1,
@@ -13,6 +14,14 @@ export default function BookDetailPage() {
         const chunks = book.summary.match(/.{1,50}/g);
         formattedSummary = chunks ? chunks.join("\n") : "";
     }
+    // 버튼 클릭 횟수 상태
+    const [count, setCount] = useState(0)
+
+    // 버튼 클릭 시 새 창 열기 + 클릭 횟수 증가
+    const handleClick = () => {
+        setCount(count + 1);
+        console.log("버튼 클릭됨");
+    };
 
     return(
         <div style={{ padding: "40px 20px" }}>
@@ -32,13 +41,17 @@ export default function BookDetailPage() {
                         style={{ width: "220px", height: "450", marginBottom: "15px" }}
                     />
 
-                    <button style={{
-                        padding: "10px 16px",
-                        fontSize: "14px",
-                        borderRadius: "8px",
-                        border: "1px solid #ccc",
-                        cursor: "pointer"
-                    }}>
+                    <button
+                        onClick={handleClick}
+                             style={{
+                                 padding: "10px 16px",
+                                 fontSize: "14px",
+                                 borderRadius: "8px",
+                                 border: "1px solid #ccc",
+                                 cursor: "pointer",
+                                 marginBottom: "10px"
+                    }}
+                    >
                         AI로 책 표지 만들기
                     </button>
                 </div>

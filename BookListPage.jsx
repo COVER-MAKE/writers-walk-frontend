@@ -17,6 +17,16 @@ export default function BookListPage() {
         {id: 11, name: "Book11", image:"Link11"}
 
     ];
+
+    // 버튼 클릭 횟수 상태
+    const [count, setCount] = useState(0)
+
+    // 버튼 클릭 시 새 창 열기 + 클릭 횟수 증가
+    const handleClick = () => {
+        setCount(count + 1);
+        console.log("버튼 클릭됨");
+    };
+
     const [search, setSearch] = useState("");
     const [selectedFilter, setSelectedFilter] = useState("title");
 
@@ -46,7 +56,9 @@ export default function BookListPage() {
                         onChange={(e) => setSearch(e.target.value)}
                         style={{ flex: 1 }}
                     />
-                    <button>검색</button>
+                    <button onClick={handleClick}>
+                        검색 ({count})
+                    </button>
                 </div>
             <div
                 style={{
