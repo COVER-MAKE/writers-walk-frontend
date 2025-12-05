@@ -11,7 +11,7 @@ import SignupPage from './pages/SignupPage';
 import HomePage from './pages/HomePage';
 // import BookListPage from './pages/BookListPage';
 // import BookDetailPage from './pages/BookDetailPage';
-// import NewBookPage from './pages/NewBookPage';
+import NewBookPage from './pages/NewBookPage';
 import MyPage from './pages/MyPage';
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
                 <Route element={<MainLayout />}>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/books" element={<div></div>/*<BookListPage />*/} />
-                    <Route path="/books/new" element={<div></div>/*<NewBookPage />*/} />
+                    <Route path="/books/new" element={<NewBookPage />} />
                     <Route path="/books/:id" element={<div></div>/*<BookDetailPage />*/} />
                     <Route path="/mypage" element={<MyPage />} />
                 </Route>
