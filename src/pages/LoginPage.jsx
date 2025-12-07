@@ -1,21 +1,63 @@
 import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import axios from 'axios';
 import {
     Box,
     Button,
     Typography,
-    Link as MuiLink,
 } from "@mui/material";
-import BookRoundedIcon from "@mui/icons-material/BookRounded";
-import AuthInput from "../components/AuthInput";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
-import {Link} from "react-router-dom"; // 컴포넌트 경로 맞춰서 조정!
+import AuthInput from "../components/AuthInput";
 
 export default function LoginPage() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleLogin = () => {
-        console.log("로그인 데이터:", { email, password });
+    const handleLogin = async () => {
+        // 입력값 유효성 검사 (빈칸 방지)
+        if (!email || !password) {
+            alert("이메일과 비밀번호를 모두 입력해주세요.");
+            return;
+        }
+
+        try {
+            const response = await axios.post(
+                'http://localhost:8080/api/v1/auth/login',
+                {
+                    email: email,
+                    password: password
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            );
+
+            if (response.data.status === 200) {
+                console.log("로그인 성공:", response.data);
+
+                // 홈 화면으로 이동
+                navigate('/');
+            } else {
+                alert("로그인 실패: " + response.data.message);
+            }
+
+        } catch (error) {
+            if (error.response) {
+                alert(error.response.data.message || "이메일 또는 비밀번호를 확인해주세요.");
+            } else {
+                alert("서버와 연결할 수 없습니다.");
+            }
+        }
+    };
+
+    // 엔터키 눌렀을 때 로그인 실행
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleLogin();
+        }
     };
 
     return (
@@ -47,21 +89,22 @@ export default function LoginPage() {
                     로그인하여 계속하기
                 </Typography>
 
+                <div onKeyDown={handleKeyPress}>
+                    <AuthInput
+                        label="이메일"
+                        placeholder="이메일 주소"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
 
-                <AuthInput
-                    label="이메일"
-                    placeholder="이메일 주소"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-
-                <AuthInput
-                    label="비밀번호"
-                    type="password"
-                    placeholder="비밀번호"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
+                    <AuthInput
+                        label="비밀번호"
+                        type="password"
+                        placeholder="비밀번호"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </div>
 
                 <Button
                     variant="contained"
@@ -73,6 +116,7 @@ export default function LoginPage() {
                         fontSize: "15px",
                         borderRadius: "8px",
                         ":hover": { backgroundColor: "#1667c7" },
+                        mt: 2
                     }}
                     onClick={handleLogin}
                 >
@@ -89,4 +133,3 @@ export default function LoginPage() {
         </Box>
     );
 }
-
