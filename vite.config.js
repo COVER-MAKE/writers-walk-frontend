@@ -4,4 +4,15 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+    server: {
+        proxy: {
+            '/openai': {
+                target: 'https://api.openai.com',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/openai/, ''), // '/openai' 부분을 지우고 전송
+                secure: false,
+                ws: true
+            }
+        }
+    }
 })
