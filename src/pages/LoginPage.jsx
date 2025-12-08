@@ -31,7 +31,7 @@ export default function LoginPage() {
                 {
                     headers: {
                         'Content-Type': 'application/json'
-                    }
+                    },
                 }
             );
 
