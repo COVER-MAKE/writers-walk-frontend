@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Container, Typography, Paper, Box, Button} from '@mui/material';
+import axios from 'axios';
+import { Container, Typography, Paper, Box, Button } from '@mui/material';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import LogoutIcon from '@mui/icons-material/Logout';
 import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
@@ -8,14 +9,49 @@ import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
 function MyPage() {
     const navigate = useNavigate();
 
-    // [mock data] 나중에 백엔드 API에서 받아올 데이터
-    // ERD의 User 테이블: email, created_at 매칭
-    const userInfo = {
-        email: 'honggildong1234@gmail.com', // User.email
-        joinDate: '2025. 12. 4.',     // User.created_at (날짜 포맷팅 필요)
-    };
+    const [userInfo, setUserInfo] = useState({
+        email: '',
+        joinDate: '',
+    });
 
-    const myBooksCount = 0; // 내가 등록한 책 개수
+    const [myBooksCount, setMyBooksCount] = useState(0);
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                // 로그인 상태 확인
+                const checkResponse = await axios.get('http://localhost:8080/api/v1/auth/check');
+
+                // status가 200인 경우에만 다음 단계 진행
+                console.log(checkResponse.data);
+                if (checkResponse.data.status === 200) {
+
+                    // 내 정보 상세 조회
+                    const meResponse = await axios.get('http://localhost:8080/api/v1/users/me');
+
+                    if (meResponse.data.status === 200) {
+                        const { email, createdAt } = meResponse.data.data;
+
+                        // 날짜 포맷팅 (2025-12-07T... -> 2025. 12. 7.)
+                        const dateObj = new Date(createdAt);
+                        const formattedDate = `${dateObj.getFullYear()}. ${dateObj.getMonth() + 1}. ${dateObj.getDate()}.`;
+
+                        setUserInfo({
+                            email: email,
+                            joinDate: formattedDate,
+                        });
+                    }
+                } else {
+                    alert("로그인이 필요한 서비스입니다.");
+                    navigate('/login');
+                }
+            } catch {
+                navigate('/login');
+            }
+        };
+
+        fetchUserData();
+    }, [navigate]);
 
     const handleLogout = () => {
         // api 예정
@@ -54,11 +90,11 @@ function MyPage() {
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 4, px: 1 }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography color="text.secondary" sx={{ fontWeight: 500 }}>이메일</Typography>
-                        <Typography sx={{ fontWeight: 500 }}>{userInfo.email}</Typography>
+                        <Typography sx={{ fontWeight: 500 }}>{userInfo.email || '불러오는 중...'}</Typography>
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography color="text.secondary" sx={{ fontWeight: 500 }}>가입일</Typography>
-                        <Typography sx={{ fontWeight: 500 }}>{userInfo.joinDate}</Typography>
+                        <Typography sx={{ fontWeight: 500 }}>{userInfo.joinDate || '불러오는 중...'}</Typography>
                     </Box>
                 </Box>
 
