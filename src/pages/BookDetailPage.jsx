@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { summarizeContent, createReviewPrompt } from '../utils/aiService';
 import axios from 'axios';
@@ -30,6 +30,33 @@ export default function BookDetailPage() {
         genre: "NOVEL",
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQileziPs4UMKdTjbFFY4_ZjZANhGjoCdzhtw&s",
     });
+
+    useEffect(() => {
+        const fetchBookDetail = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/api/v1/books/${id}`
+                );
+
+                console.log(response.data);
+
+                if (response.data.status === 200) {
+                    const data = response.data.data;
+                    setBook({
+                        id: data.id,
+                        title: data.title,
+                        content: data.content,
+                        genre: data.genre,
+                        image: data.thumbnailUrl
+                    });
+                }
+            } catch (error) {
+                console.log(error);
+                alert("도서정보를 불러올 수 없습니다.")
+                navigate('/books');
+            }
+        };
+        fetchBookDetail();
+    },[id]);
 
     const [apiKey, setApiKey] = useState("");
     const [isGenerating, setIsGenerating] = useState(false);
@@ -129,22 +156,47 @@ export default function BookDetailPage() {
             <Box sx={{ display: 'flex', gap: 6, justifyContent: 'center', alignItems: 'flex-start', flexWrap: 'wrap' }}>
 
                 <Box sx={{ display: 'flex', flexDirection: 'column', width: '300px' }}>
-                    <Box
-                        component="img"
-                        src={book.image}
-                        alt={book.title}
-                        sx={{
-                            width: '100%',
-                            height: 'auto',
-                            borderRadius: 2,
-                            boxShadow: 3,
-                            mb: 2,
-                            objectFit: 'cover',
-                            aspectRatio: '2/3',
-                            opacity: isGenerating ? 0.5 : 1, // 로딩 중 흐리게
-                            transition: 'opacity 0.3s'
-                        }}
-                    />
+                    {book.image ? (
+                        <Box
+                            component="img"
+                            src={book.image}
+                            alt={book.title}
+                            sx={{
+                                width: '100%',
+                                height: 'auto',
+                                borderRadius: 2,
+                                boxShadow: 3,
+                                mb: 2,
+                                objectFit: 'cover',
+                                aspectRatio: '2/3',
+                                opacity: isGenerating ? 0.5 : 1, // 로딩 중 흐리게
+                                transition: 'opacity 0.3s'
+                            }}
+                        />
+
+                    ) : (
+                        <Box
+                            sx={{
+                                width: '100%',
+                                height: 'auto',
+                                borderRadius: 2,
+                                boxShadow: 3,
+                                mb: 2,
+                                backgroundColor: '#90caf9',
+                                border: '1px solid #ccc',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                aspectRatio: '2/3',
+                                color: 'black',
+                                fontSize: '16px',
+                                opacity: 0.3
+                            }}
+                        >
+                            표지 없음
+                        </Box>
+                    )}
+
                     <Button
                         variant="outlined"
                         fullWidth
