@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import {useParams, useNavigate, data} from 'react-router-dom';
 import { summarizeContent, createReviewPrompt } from '../utils/aiService';
 import axios from 'axios';
 import {
@@ -75,6 +75,7 @@ export default function BookDetailPage() {
             alert("삭제 중에 오류가 발생했습니다")
         }
     }
+
 
 
     const [apiKey, setApiKey] = useState("");
@@ -162,7 +163,7 @@ export default function BookDetailPage() {
                 </Button>
 
                 <Stack direction="row" spacing={1}>
-                    <Button variant="outlined" startIcon={<EditIcon />} color="primary">
+                    <Button variant="outlined" startIcon={<EditIcon />} color="primary" onClick={() => navigate(`/books/${id}/edit`)}>
                         수정
                     </Button>
                     <Button variant="contained" startIcon={<DeleteIcon />} color="error" onClick={handleDelete}>

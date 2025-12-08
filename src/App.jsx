@@ -30,6 +30,7 @@ function App() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/books" element={<BookListPage />} />
                     <Route path="/books/new" element={<NewBookPage />} />
+                    <Route path="/books/:id/edit" element={<NewBookPage />} />
                     <Route path="/books/:id" element={<BookDetailPage />} />
                     <Route path="/mypage" element={<MyPage />} />
                 </Route>
