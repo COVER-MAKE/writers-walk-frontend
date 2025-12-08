@@ -9,8 +9,8 @@ import MainLayout from './layouts/MainLayout';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import HomePage from './pages/HomePage';
-// import BookListPage from './pages/BookListPage';
-// import BookDetailPage from './pages/BookDetailPage';
+import BookListPage from './pages/BookListPage';
+import BookDetailPage from './pages/BookDetailPage';
 import NewBookPage from './pages/NewBookPage';
 import MyPage from './pages/MyPage';
 
@@ -28,9 +28,9 @@ function App() {
                 {/* 헤더 있는 페이지 (MainLayout 적용) */}
                 <Route element={<MainLayout />}>
                     <Route path="/" element={<HomePage />} />
-                    <Route path="/books" element={<div></div>/*<BookListPage />*/} />
+                    <Route path="/books" element={<BookListPage />} />
                     <Route path="/books/new" element={<NewBookPage />} />
-                    <Route path="/books/:id" element={<div></div>/*<BookDetailPage />*/} />
+                    <Route path="/books/:id" element={<BookDetailPage />} />
                     <Route path="/mypage" element={<MyPage />} />
                 </Route>
             </Routes>
@@ -38,4 +38,4 @@ function App() {
     );
 }
 
-export default App;
+export default App
