@@ -1,16 +1,49 @@
 import React, { useState } from "react";
 import { Box, Typography, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import AuthInput from "../components/AuthInput";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
+import axios from "axios";
 
 export default function SignupPage() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
 
-    const handleSignup = () => {
-        console.log("회원가입 데이터:", { email, password });
+    const handleSignup = async () => {
+        if (!email || !password) {
+            alert('이메일과 비밀번호를 작성해주세요.');
+            return;
+        }
+        try {
+            const response = await axios.post(
+                'http://localhost:8080/api/v1/auth/signup',
+                {
+                    email: email,
+                    password: password
+                },
+                {
+                    headers: {"Content-Type": "application/json",
+                    }
+                }
+            );
+
+            console.log("서버 응답:", response);
+
+            if (response.data.status === 201) {
+                alert("회원가입이 완료되었습니다.");
+                navigate("/login");
+            } else{
+                alert("회원가입 실패: " + response.data.message);
+            }
+        } catch (error) {
+            if (error.response) {
+                alert(error.response.data.message || "회원가입에 실패했습니다.");
+            } else {
+                alert("서버와 연결할 수 없습니다.")
+            }
+        }
     };
 
     return (
