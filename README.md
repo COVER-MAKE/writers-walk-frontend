@@ -1,16 +1,33 @@
-# React + Vite
+## COVER-MAKE 프론트엔드 팀 README
+프론트엔드 repository
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## ✅ 개발 환경
+- React: 19.2.0
+- Vite: 7.2.4
+- MUI (Material UI): 7.3.6
+- Axios: 1.13.2
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 도서관리 시스템 제품 소개
+AI 기술을 활용하여 도서의 내용을 분석하고 그에 어울리는 표지를 자동으로 생성해주는 스마트한 도서 관리 서비스입니다. 누구나 쉽게 도서를 등록하고 관리하며 나만의 디지털 서재를 꾸밀 수 있습니다.
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 주요 기능
+- AI 도서 내용 분석을 통한 맞춤형 표지 이미지 자동 생성
+- 쉽고 간편한 도서 정보 등록, 수정, 삭제 (CRUD) 기능
+- 카드 뉴스 형태의 직관적인 도서 목록 및 상세 정보 조회
+- 마이페이지를 통한 내가 등록한 도서 모아보기 및 내 정보 관리
+- 사용자 인증 시스템 (로그인, 회원가입, 로그아웃)
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Commit Message Convention
+
+| Tag Name       | Description                                    |
+|----------------|------------------------------------------------|
+| :sparkles: Feat    | 새로운 기능을 추가                              |
+| :bug: Fix          | 버그 수정                                      |
+| :art: Style        | 코드 포맷 변경, 세미 콜론 누락, 코드 수정이 없는 경우 |
+| :hammer:  Refactor | 프로덕션 코드 리팩토링                         |
+| :memo: Docs        | 문서 수정                                      |
+| :test_tube: Test   | 테스트 코드, 리팩토링 테스트 코드 추가, Production Code(실제로 사용하는 코드) 변경 없음 |
+| :rocket: Chore     | 빌드 업무 수정, 패키지 매니저 수정, 패키지 관리자 구성 등 업데이트, Production Code 변경 없음 |
