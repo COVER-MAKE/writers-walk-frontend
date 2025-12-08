@@ -79,7 +79,7 @@ export default function NewBookPage() {
             console.log('응답:', response.data);
 
             if(response.data.status === 200) {
-                alert(response.data.message);
+                alert("도서가 등록되었습니다.");
                 navigate('/books');
             } else {
                 alert("등록실패: "+ response.data.message);
