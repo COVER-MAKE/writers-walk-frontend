@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { summarizeContent, createReviewPrompt } from '../utils/aiService';
 import axios from 'axios';
 import {
     Box,
@@ -24,8 +25,8 @@ export default function BookDetailPage() {
 
     const [book, setBook] = useState({
         id: 1,
-        title: "에이블스쿨 7기의 여정",
-        content: "에이블스쿨 7기 학생들의 성장 이야기를 담은 책입니다. AI와 데이터 분석을 배우며 성장하는 과정을 기록했습니다. 팀 프로젝트와 해커톤을 거치며 진정한 개발자로 거듭나는 그들의 열정과 노력을 엿볼 수 있습니다.",
+        title: "젋은 느티나무",
+        content: "재혼한 어머니를 따라 새로운 가족이 된 열여덟 살 숙희와 스물두 살 현규. 숙희는 의붓오빠인 현규에게서 나는 싱그러운 비누 냄새에 설레며 남매라는 관계 속에서 금지된 사랑의 감정을 느낀다. 죄책감과 혼란스러움에 괴로워하던 숙희는 결국 도망치듯 시골로 떠나지만, 그녀를 찾아온 현규는 '우리에게 길이 없는 것은 아니다'라며 잠시 떨어져 자신을 찾은 뒤 다시 만나자고 약속한다. 숙희는 젊은 느티나무 아래서 미래에 대한 희망을 확인하고, 비로소 그를 마음껏 사랑해도 된다는 벅찬 기쁨을 깨닫는다.",
         genre: "NOVEL",
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQileziPs4UMKdTjbFFY4_ZjZANhGjoCdzhtw&s",
     });
@@ -53,10 +54,14 @@ export default function BookDetailPage() {
         setErrorMsg(null);
 
         try {
-            const prompt = `A book cover for a ${book.genre} genre book titled "${book.title}". 
-                            The content is about: ${book.content.substring(0, 100)}. 
-                            High quality, artistic, minimal text.`;
+            console.log("1. 내용 요약 중...");
+            const summary = await summarizeContent(currentKey, book.title, book.content);
+            console.log("요약 완료:", summary);
 
+            const finalPrompt = createReviewPrompt(summary, book.genre, book.title);
+            console.log("생성된 프롬프트:", finalPrompt);
+
+            console.log("2. 이미지 생성 중...");
             const response = await fetch("/openai/v1/images/generations", {
                 method: "POST",
                 headers: {
@@ -65,7 +70,7 @@ export default function BookDetailPage() {
                 },
                 body: JSON.stringify({
                     model: "dall-e-3",
-                    prompt: prompt,
+                    prompt: finalPrompt,
                     n: 1,
                     size: "1024x1024",
                 }),
