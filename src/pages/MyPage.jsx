@@ -53,11 +53,18 @@ function MyPage() {
         fetchUserData();
     }, [navigate]);
 
-    const handleLogout = () => {
-        // api 예정
+    const handleLogout = async () => {
         const confirmLogout = window.confirm("로그아웃 하시겠습니까?");
-        if (confirmLogout) {
-            navigate('/login'); // 로그인 페이지로 이동
+        if (!confirmLogout) return;
+
+        try {
+            const response = await axios.post('http://localhost:8080/api/v1/auth/logout');
+            if(response.status === 200) {
+                alert('로그아웃 되었습니다.');
+                navigate('/login');
+            }
+        } catch {
+            alert('로그아웃 중 오류가 발생했습니다.');
         }
     };
 
