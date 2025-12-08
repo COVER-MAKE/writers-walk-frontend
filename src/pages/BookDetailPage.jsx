@@ -58,6 +58,25 @@ export default function BookDetailPage() {
         fetchBookDetail();
     },[id]);
 
+    const handleDelete = async () => {
+        const confirmDelete = window.confirm("정말로 삭제하시겠습니까?");
+        if (!confirmDelete) return;
+
+        try {
+            const response = await axios.delete(`http://localhost:8080/api/v1/books/${id}`)
+            if (response.data.status === 200) {
+                alert("삭제가 완료되었습니다")
+                navigate('/books');
+            } else{
+                alert("삭제 실패"+response.data.message);
+            }
+        } catch (error) {
+            console.log(error);
+            alert("삭제 중에 오류가 발생했습니다")
+        }
+    }
+
+
     const [apiKey, setApiKey] = useState("");
     const [isGenerating, setIsGenerating] = useState(false);
     const [errorMsg, setErrorMsg] = useState(null);
@@ -146,7 +165,7 @@ export default function BookDetailPage() {
                     <Button variant="outlined" startIcon={<EditIcon />} color="primary">
                         수정
                     </Button>
-                    <Button variant="contained" startIcon={<DeleteIcon />} color="error">
+                    <Button variant="contained" startIcon={<DeleteIcon />} color="error" onClick={handleDelete}>
                         삭제
                     </Button>
                 </Stack>
