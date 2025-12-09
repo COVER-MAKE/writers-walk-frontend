@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import axios from "axios";
 
@@ -39,6 +39,24 @@ export default function BookListPage() {
             .catch(err => console.log(err));
         }, []);
 
+    const location = useLocation();
+
+
+
+    const fetchBooks = () => {
+        axios.get('http://localhost:8080/api/v1/books')
+            .then(res => {
+                console.log("GET:", res.data);
+                setBooks(Array.isArray(res.data.data) ? res.data.data : []);
+            })
+            .catch(err => console.log(err));
+    };
+
+    useEffect(() => {
+        if (location.state?.refresh) {
+            fetchBooks();
+        }
+    }, [location.state]);
 
     // 버튼 클릭 횟수 상태
     const [count, setCount] = useState(0)
@@ -111,16 +129,16 @@ export default function BookListPage() {
                                 margin: "0 auto",
                                 borderRadius: "4px",
                                 overflow: "hidden",
-                                backgroundColor: books.image ? "transparent" : "#e0e0e0",
-                                border: books.image ? "none" : "1px solid #ccc",
+                                backgroundColor: books.thumbnailUrl ? "transparent" : "#e0e0e0",
+                                border: books.thumbnailUrl ? "none" : "1px solid #ccc",
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
                             }}
                         >
-                            {books.image ? (
+                            {books.thumbnailUrl ? (
                                 <img
-                                    src={books.image}
+                                    src={books.thumbnailUrl}
                                     alt={books.title}
                                     style={{
                                         width: "100%",
