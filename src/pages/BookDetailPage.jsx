@@ -83,6 +83,17 @@ export default function BookDetailPage() {
     const [errorMsg, setErrorMsg] = useState(null);
 
     const handleAiCoverClick = async () => {
+        try {
+            const check = await axios.get('/api/v1/auth/check');
+            if (check.data.status !== 200) {
+                throw new Error('not logged in');
+            }
+        } catch {
+            alert('로그인이 필요합니다. 다시 로그인해주세요.');
+            navigate('/login');
+            return;
+        }
+
         let currentKey = apiKey;
 
         if (!currentKey) {
@@ -116,7 +127,7 @@ export default function BookDetailPage() {
                     "Authorization": `Bearer ${currentKey}`,
                 },
                 body: JSON.stringify({
-                    model: "dall-e-3",
+                    model: "dall-e-2",
                     prompt: finalPrompt,
                     n: 1,
                     size: "1024x1024",
@@ -133,7 +144,11 @@ export default function BookDetailPage() {
 
             console.log("생성된 이미지:", generatedImageUrl);
 
-            await axios.put(`/api/v1/books/${id}/cover-url`, { thumbnailUrl: generatedImageUrl });
+            await axios.put(
+                `/api/v1/books/${id}/cover-url`,
+                { thumbnailUrl: generatedImageUrl },
+                { withCredentials: true }
+            );
 
             setBook((prev) => ({
                 ...prev,
