@@ -46,23 +46,15 @@ export const summarizeContent = async (apiKey, title, content) => {
 export const createReviewPrompt = (summary, genre) => {
     const genreStyle = GENRE_STYLES[genre] || GENRE_STYLES.NOVEL;
 
-    return `A high-quality vertical digital art piece (Wallpaper style).
-            
-            [Core Subject]
-            ${summary}
+    const trimmedSummary = summary.length > 300 ? `${summary.slice(0, 300)}...` : summary;
 
-            [Art Style]
-            ${genreStyle}
+    const prompt = [
+        'Vertical 9:16 illustration, full-bleed.',
+        `Subject: ${trimmedSummary}`,
+        `Style: ${genreStyle}`,
+        'Keep flat 2D, front view.',
+        'Avoid: any text/letters/signatures, books/covers/spines, mockups, 3D, borders/frames.'
+    ].join('\n');
 
-            [Composition]
-            - Layout: Edge-to-edge full screen illustration (Full Bleed).
-            - Perspective: Flat 2D, Direct front view.
-            - Aspect Ratio: Vertical 9:16.
-
-            [Strict Negative Constraints - CRITICAL]
-            - NO TEXT, NO LETTERS, NO TYPOGRAPHY, NO SIGNATURE.
-            - DO NOT draw a book, DO NOT draw a cover, DO NOT draw a spine.
-            - NOT a product mockup, NOT a 3D object.
-            - No borders, no frames, no margins.
-            - Just the pure artwork image filling the entire canvas.`;
+    return prompt.length > 950 ? `${prompt.slice(0, 947)}...` : prompt;
 };
