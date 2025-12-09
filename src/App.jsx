@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
 
@@ -15,10 +15,13 @@ import NewBookPage from './pages/NewBookPage';
 import MyPage from './pages/MyPage';
 
 function App() {
+    const [refresh, setRefresh] = useState(false);
     return (
         <BrowserRouter>
             {/* CssBaseline: 브라우저 기본 스타일 초기화 */}
             <CssBaseline />
+
+
 
             <Routes>
                 {/* 헤더 없는 페이지 */}
@@ -33,10 +36,12 @@ function App() {
                     <Route path="/books/:id/edit" element={<NewBookPage />} />
                     <Route path="/books/:id" element={<BookDetailPage />} />
                     <Route path="/mypage" element={<MyPage />} />
+
                 </Route>
             </Routes>
         </BrowserRouter>
-    );
+
+);
 }
 
 export default App;

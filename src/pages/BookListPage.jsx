@@ -1,32 +1,44 @@
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
 import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 
 import { useNavigate } from "react-router-dom";
 
+import axios from "axios";
+
 
 
 export default function BookListPage() {
     // 임시 상품 목록(데이터 나중에 가져오기)
-    const books = [
-        {
-            id: 1,
-            name: "Book1",
-            image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA2T11Ya_1vQ32OhYaTgi37lanDQevZO-SjQ&s"
-        },
-        {id: 2, name: "Book2", image: ""},
-        {id: 3, name: "Book3", image: ""},
-        {id: 4, name: "Book4", image: ""},
-        {id: 5, name: "Book5", image: ""},
-        {id: 6, name: "Book6", image: ""},
-        {id: 7, name: "Book7", image: ""},
-        {id: 8, name: "Book8", image: ""},
-        {id: 9, name: "Book9", image: ""},
-        {id: 10, name: "Book10", image: ""},
-        {id: 11, name: "Book11", image: ""}
+    // const books = [
+    //     {
+    //         id: 1,
+    //         name: "Book1",
+    //         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA2T11Ya_1vQ32OhYaTgi37lanDQevZO-SjQ&s"
+    //     },
+    //     {id: 2, name: "Book2", image: ""},
+    //     {id: 3, name: "Book3", image: ""},
+    //     {id: 4, name: "Book4", image: ""},
+    //     {id: 5, name: "Book5", image: ""},
+    //     {id: 6, name: "Book6", image: ""},
+    //     {id: 7, name: "Book7", image: ""},
+    //     {id: 8, name: "Book8", image: ""},
+    //     {id: 9, name: "Book9", image: ""},
+    //     {id: 10, name: "Book10", image: ""},
+    //     {id: 11, name: "Book11", image: ""}
+    //
+    // ];
+    const [books, setBooks] = useState([]);
 
-    ];
+    useEffect(() => {
+        axios.get('http://localhost:8080/api/v1/books')
+            .then(res => {
+                console.log("GET:", res.data);
+                setBooks(Array.isArray(res.data.data) ? res.data.data : []);
+            })
+            .catch(err => console.log(err));
+        }, []);
+
 
     // 버튼 클릭 횟수 상태
     const [count, setCount] = useState(0)
@@ -109,7 +121,7 @@ export default function BookListPage() {
                             {books.image ? (
                                 <img
                                     src={books.image}
-                                    alt={books.name}
+                                    alt={books.title}
                                     style={{
                                         width: "100%",
                                         height: "100%",
@@ -122,7 +134,7 @@ export default function BookListPage() {
                             )}
                         </div>
 
-                        <p>{books.name}</p>
+                        <p>{books.title}</p>
                     </div>
                 ))}
 
