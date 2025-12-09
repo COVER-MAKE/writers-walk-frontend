@@ -34,9 +34,8 @@ export default function BookListPage() {
         setCurrentPage(Number(value));
     };
 
-    const searchBooks = async (title, keyword) => {
+    const searchBooks = async (keyword) => {
         const params = {};
-        if (title?.trim()) params.title = title;
         if (keyword?.trim()) params.keyword = keyword;
         const res = await
             axios.get("http://localhost:8080/api/v1/books/search",
@@ -84,9 +83,8 @@ export default function BookListPage() {
                     value={selectedFilter}
                     onChange={(e) => setSelectedFilter(e.target.value)}
                 >
-                    <option value="title">제목</option>
+                    <option value="keyword">제목+내용</option>
                     <option value="category">장르</option>
-                    <option value="keyword">키워드</option>
                 </select>
 
                 <input
