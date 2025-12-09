@@ -1,17 +1,22 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+    plugins: [react()],
     server: {
         proxy: {
             '/openai': {
                 target: 'https://api.openai.com',
                 changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/openai/, ''), // '/openai' 부분을 지우고 전송
+                rewrite: (path) => path.replace(/^\/openai/, ''),
                 secure: false,
                 ws: true
+            },
+
+            '/images': {
+                target: 'http://localhost:8080',
+                changeOrigin: true,
+                secure: false
             }
         }
     }
