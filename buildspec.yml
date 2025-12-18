@@ -5,9 +5,7 @@ phases:
     runtime-versions:
       nodejs: 22
     commands:
-      - nvm install 22.18.0 
-      - nvm use 22.18.0
-      - node -v 
+      - node -v
       - echo "라이브러리 설치 중..."
       - npm install
   build:
