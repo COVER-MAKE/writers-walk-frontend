@@ -34,7 +34,7 @@ export default function BookDetailPage() {
     useEffect(() => {
         const fetchBookDetail = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/v1/books/${id}`
+                const response = await axios.get('${VITE_API_URL}/api/v1/books/${id}'
                 );
 
                 console.log(response.data);
@@ -63,7 +63,7 @@ export default function BookDetailPage() {
         if (!confirmDelete) return;
 
         try {
-            const response = await axios.delete(`http://localhost:8080/api/v1/books/${id}`)
+            const response = await axios.delete('${VITE_API_URL}/api/v1/books/${id}')
             if (response.data.status === 200) {
                 alert("삭제가 완료되었습니다")
                 navigate('/books');
@@ -84,7 +84,7 @@ export default function BookDetailPage() {
 
     const handleAiCoverClick = async () => {
         try {
-            const check = await axios.get('/api/v1/auth/check');
+            const check = await axios.get('${VITE_API_URL}/api/v1/auth/check');
             if (check.data.status !== 200) {
                 throw new Error('not logged in');
             }
@@ -145,7 +145,7 @@ export default function BookDetailPage() {
             console.log("생성된 이미지:", generatedImageUrl);
 
             await axios.put(
-                `/api/v1/books/${id}/cover-url`,
+                '${VITE_API_URL}/api/v1/books/${id}/cover-url',
                 { thumbnailUrl: generatedImageUrl },
                 { withCredentials: true }
             );
@@ -171,7 +171,7 @@ export default function BookDetailPage() {
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
                 <Button
                     startIcon={<ArrowBackIcon />}
-                    onClick={() => navigate('/books')}
+                    onClick={() => navigate(`/books`)}
                     sx={{ color: 'text.secondary' }}
                 >
                     목록으로 돌아가기

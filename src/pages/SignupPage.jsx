@@ -18,7 +18,7 @@ export default function SignupPage() {
         }
         try {
             const response = await axios.post(
-                'http://localhost:8080/api/v1/auth/signup',
+                '${VITE_API_URL}/api/v1/auth/signup',
                 {
                     email: email,
                     password: password
@@ -33,7 +33,7 @@ export default function SignupPage() {
 
             if (response.data.status === 201) {
                 alert("회원가입이 완료되었습니다.");
-                navigate("/login");
+                navigate(`/login`);
             } else{
                 alert("회원가입 실패: " + response.data.message);
             }

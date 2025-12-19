@@ -13,7 +13,7 @@ export default function NewBookPage() {
         const fetchUserData = async () => {
             try {
                 const checkResponse = await axios.get(
-                    "http://localhost:8080/api/v1/auth/check",
+                    "${VITE_API_URL}/api/v1/auth/check",
                     { withCredentials: true }
                 );
 
@@ -46,7 +46,7 @@ export default function NewBookPage() {
 
         const loadbook = async () => {
             try{
-                const response = await axios.get(`http://localhost:8080/api/v1/books/${id}`);
+                const response = await axios.get('${VITE_API_URL}/api/v1/books/${id}');
 
                 if (response.status === 200) {
                     const data = response.data.data;
@@ -83,13 +83,13 @@ export default function NewBookPage() {
             if (isEditMode) {
                 // 수정 PUT 요청
                 response = await axios.put(
-                    `http://localhost:8080/api/v1/books/${id}`,
+                    '${VITE_API_URL}/api/v1/books/${id}',
                     form
                 );
             } else {
                 // 신규 등록 POST 요청
                 response = await axios.post(
-                    "http://localhost:8080/api/v1/books",
+                    "${VITE_API_URL}/api/v1/books",
                     form
                 );
             }

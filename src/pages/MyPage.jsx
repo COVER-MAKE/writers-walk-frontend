@@ -38,9 +38,9 @@ function MyPage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const checkResponse = await axios.get('http://localhost:8080/api/v1/auth/check');
+                const checkResponse = await axios.get('${VITE_API_URL}/api/v1/auth/check');
                 if (checkResponse.data.status === 200) {
-                    const meResponse = await axios.get('http://localhost:8080/api/v1/users/me');
+                    const meResponse = await axios.get('${VITE_API_URL}/api/v1/users/me');
                     if (meResponse.data.status === 200) {
                         const { email, createdAt } = meResponse.data.data;
                         const dateObj = new Date(createdAt);
@@ -48,7 +48,7 @@ function MyPage() {
                         setUserInfo({ email, joinDate: formattedDate });
                     }
 
-                    const booksResponse = await axios.get('http://localhost:8080/api/v1/users/me/books');
+                    const booksResponse = await axios.get('${VITE_API_URL}/api/v1/users/me/books');
                     if (booksResponse.data.status === 200) {
                         const { books, totalCount } = booksResponse.data.data;
                         setMyBooks(books);
@@ -71,7 +71,7 @@ function MyPage() {
         if (!confirmLogout) return;
 
         try {
-            const response = await axios.post('http://localhost:8080/api/v1/auth/logout');
+            const response = await axios.post('${VITE_API_URL}/api/v1/auth/logout');
             if(response.status === 200) {
                 alert('로그아웃 되었습니다.');
                 navigate('/login');
