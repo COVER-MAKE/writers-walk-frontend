@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
@@ -14,6 +15,12 @@ import BookDetailPage from './pages/BookDetailPage';
 import NewBookPage from './pages/NewBookPage';
 import MyPage from './pages/MyPage';
 
+=======
+import { useState } from 'react'
+import './App.css'
+import BookListPage from './pages/BookListPage.jsx'
+import BookDetailPage from './pages/BookDetailPage.jsx'
+>>>>>>> Stashed changes
 function App() {
     const [refresh, setRefresh] = useState(false);
     return (
@@ -21,6 +28,7 @@ function App() {
             {/* CssBaseline: 브라우저 기본 스타일 초기화 */}
             <CssBaseline />
 
+<<<<<<< Updated upstream
 
 
             <Routes>
@@ -42,6 +50,16 @@ function App() {
         </BrowserRouter>
 
 );
+=======
+  return (
+      <>
+      <div>
+          <BookListPage />
+          <BookDetailPage count={count} setCount={setCount}/>
+      </div>
+    </>
+    )
+>>>>>>> Stashed changes
 }
 
 export default App;
