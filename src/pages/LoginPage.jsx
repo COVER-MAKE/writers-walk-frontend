@@ -23,7 +23,7 @@ export default function LoginPage() {
 
         try {
             const response = await axios.post(
-                '${VITE_API_URL}/api/v1/auth/login',
+                `${import.meta.env.VITE_API_URL}/api/v1/auth/login`,
                 {
                     email: email,
                     password: password
@@ -39,7 +39,7 @@ export default function LoginPage() {
                 console.log("로그인 성공:", response.data);
 
                 // 홈 화면으로 이동
-                navigate('/');
+                navigate("/");
             } else {
                 alert("로그인 실패: " + response.data.message);
             }

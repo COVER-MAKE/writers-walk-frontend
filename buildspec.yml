@@ -8,6 +8,11 @@ phases:
       - node -v
       - echo "라이브러리 설치 중..."
       - npm install
+  pre_build:
+    commands:
+      - echo "환경 변수 주입 중..."
+      - echo "VITE_API_URL=${VITE_API_URL}" >> .env
+      - echo ".env 파일 생성 완료"
   build:
     commands:
       - echo "Vite 빌드 시작..."

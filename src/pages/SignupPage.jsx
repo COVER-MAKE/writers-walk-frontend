@@ -11,14 +11,16 @@ export default function SignupPage() {
     const [password, setPassword] = useState("");
 
 
-    const handleSignup = async () => {
+    const handleSignup = async (
+
+    ) => {
         if (!email || !password) {
             alert('이메일과 비밀번호를 작성해주세요.');
             return;
         }
         try {
             const response = await axios.post(
-                '${VITE_API_URL}/api/v1/auth/signup',
+                `${import.meta.env.VITE_API_URL}/api/v1/auth/signup`,
                 {
                     email: email,
                     password: password
@@ -33,7 +35,7 @@ export default function SignupPage() {
 
             if (response.data.status === 201) {
                 alert("회원가입이 완료되었습니다.");
-                navigate(`/login`);
+                navigate("/login");
             } else{
                 alert("회원가입 실패: " + response.data.message);
             }
