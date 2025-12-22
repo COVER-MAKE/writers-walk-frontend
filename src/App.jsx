@@ -13,10 +13,10 @@ import BookListPage from './pages/BookListPage';
 import BookDetailPage from './pages/BookDetailPage';
 import NewBookPage from './pages/NewBookPage';
 import MyPage from './pages/MyPage';
-
 function App() {
     const [refresh, setRefresh] = useState(false);
     return (
+
         <BrowserRouter>
             {/* CssBaseline: 브라우저 기본 스타일 초기화 */}
             <CssBaseline />

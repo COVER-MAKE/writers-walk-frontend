@@ -11,14 +11,16 @@ export default function SignupPage() {
     const [password, setPassword] = useState("");
 
 
-    const handleSignup = async () => {
+    const handleSignup = async (
+
+    ) => {
         if (!email || !password) {
             alert('이메일과 비밀번호를 작성해주세요.');
             return;
         }
         try {
             const response = await axios.post(
-                'http://localhost:8080/api/v1/auth/signup',
+                `${import.meta.env.VITE_API_URL}/api/v1/auth/signup`,
                 {
                     email: email,
                     password: password
