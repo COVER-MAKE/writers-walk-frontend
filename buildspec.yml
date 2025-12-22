@@ -12,7 +12,8 @@ phases:
     commands:
       - echo "환경 변수 주입 중..."
       - echo "VITE_API_URL=${VITE_API_URL}" >> .env
-      - echo ".env 파일 생성 완료"
+      - echo ".env 파일 생성 완료. 내용 확인:"
+      - cat .env 
   build:
     commands:
       - echo "Vite 빌드 시작..."
