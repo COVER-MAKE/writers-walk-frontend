@@ -4,8 +4,12 @@ import { Typography, Button, Box, Grid, Card, CardContent, Container } from '@mu
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import { useNavigate } from "react-router-dom";
+
+
 
 function HomePage() {
+    const navigate = useNavigate();
     return (
         <Box sx={{ py: 8, minHeight: '80vh', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
 
@@ -14,7 +18,8 @@ function HomePage() {
                 <Box sx={{ display: 'inline-flex', p: 2, bgcolor: '#e3f2fd', borderRadius: '50%', mb: 2 }}>
                     <MenuBookIcon sx={{ fontSize: 40, color: '#2196f3' }} />
                 </Box>
-                <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 'bold', color: '#333' }}>
+                <Typography variant="h3" component="h1" gutterBottom sx={{ fontWeight: 'bold', color: '#333' }
+                }>
                     도서관리 시스템
                 </Typography>
                 <Typography variant="h6" color="text.secondary" sx={{ mb: 4, wordBreak: 'keep-all' }}>
@@ -49,7 +54,8 @@ function HomePage() {
 
                     {/* 카드 1: 도서 관리 */}
                     <Grid item xs={12} md={4}>
-                        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', p: 1, boxShadow: '0 4px 20px rgba(0,0,0,0.08)', borderRadius: 4 }}>
+                        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', p: 1, boxShadow: '0 4px 20px rgba(0,0,0,0.08)', borderRadius: 4 }}
+                              onClick={() => navigate('/mypage')}>
                             <CardContent sx={{ flexGrow: 1, textAlign: 'left' }}>
                                 <Box sx={{
                                     width: 50, height: 50, borderRadius: 2,
@@ -68,7 +74,8 @@ function HomePage() {
 
                     {/* 카드 2: 상세 정보 조회 */}
                     <Grid item xs={12} md={4}>
-                        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', p: 1, boxShadow: '0 4px 20px rgba(0,0,0,0.08)', borderRadius: 4 }}>
+                        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', p: 1, boxShadow: '0 4px 20px rgba(0,0,0,0.08)', borderRadius: 4 }}
+                              onClick={() => navigate('/books')}>
                             <CardContent sx={{ flexGrow: 1, textAlign: 'left' }}>
                                 <Box sx={{
                                     width: 50, height: 50, borderRadius: 2,
@@ -87,7 +94,8 @@ function HomePage() {
 
                     {/* 카드 3: AI 표지 생성 */}
                     <Grid item xs={12} md={4}>
-                        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', p: 1, boxShadow: '0 4px 20px rgba(0,0,0,0.08)', borderRadius: 4 }}>
+                        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', p: 1, boxShadow: '0 4px 20px rgba(0,0,0,0.08)', borderRadius: 4 }}
+                              onClick={() => navigate('/books')}>
                             <CardContent sx={{ flexGrow: 1, textAlign: 'left' }}>
                                 <Box sx={{
                                     width: 50, height: 50, borderRadius: 2,
