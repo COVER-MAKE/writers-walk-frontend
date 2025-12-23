@@ -14,7 +14,7 @@ export default defineConfig({
             },
 
             '/images': {
-                target: 'http://localhost:8080',
+                target: 'https://jinybook.site',
                 changeOrigin: true,
                 secure: false
             }
