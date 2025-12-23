@@ -94,7 +94,7 @@ export default function BookListPage() {
                     }}
 
                 >
-                    <option value="keyword">제목+내용</option>
+                    <option value="title">제목+내용</option>
                     <option value="category">장르</option>
                 </select>
 
@@ -143,7 +143,7 @@ export default function BookListPage() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "40px", marginTop: "40px" }}>
                 {currentBooks.map(book => (
                     <div key={book.id} style={{ textAlign: "center" }}
-                         onClick={() => navigate(`/books/${id}`)}>
+                         onClick={() => navigate(`/books/${book.id}`)}>
                         <div
                             style={{
                                 width: "150px",

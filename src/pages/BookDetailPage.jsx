@@ -24,11 +24,11 @@ export default function BookDetailPage() {
     const navigate = useNavigate();
 
     const [book, setBook] = useState({
-        id: 1,
-        title: "젋은 느티나무",
-        content: "재혼한 어머니를 따라 새로운 가족이 된 열여덟 살 숙희와 스물두 살 현규. 숙희는 의붓오빠인 현규에게서 나는 싱그러운 비누 냄새에 설레며 남매라는 관계 속에서 금지된 사랑의 감정을 느낀다. 죄책감과 혼란스러움에 괴로워하던 숙희는 결국 도망치듯 시골로 떠나지만, 그녀를 찾아온 현규는 '우리에게 길이 없는 것은 아니다'라며 잠시 떨어져 자신을 찾은 뒤 다시 만나자고 약속한다. 숙희는 젊은 느티나무 아래서 미래에 대한 희망을 확인하고, 비로소 그를 마음껏 사랑해도 된다는 벅찬 기쁨을 깨닫는다.",
-        genre: "NOVEL",
-        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQileziPs4UMKdTjbFFY4_ZjZANhGjoCdzhtw&s",
+        id: null,
+        title: "",
+        content: "",
+        genre: "",
+        image: "",
     });
 
     useEffect(() => {

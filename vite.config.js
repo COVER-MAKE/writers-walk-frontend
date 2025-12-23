@@ -13,8 +13,14 @@ export default defineConfig({
                 ws: true
             },
 
+            '/api': { // 내 백엔드 API를 위한 설정 추가
+                target: 'http://localhost:5173',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/api/, '')
+            },
+
             '/images': {
-                target: 'http://localhost:8080',
+                target: 'https://jinybook.site',
                 changeOrigin: true,
                 secure: false
             }

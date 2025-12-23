@@ -28,10 +28,12 @@ export default function LoginPage() {
                     email: email,
                     password: password
                 },
+
                 {
                     headers: {
                         'Content-Type': 'application/json'
                     },
+
                 }
             );
 
